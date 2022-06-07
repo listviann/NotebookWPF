@@ -24,11 +24,18 @@
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="File">
+                <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
+                <MenuItem Header="Save" Command="{Binding SaveCommand}"/>
+            </MenuItem>
+        </Menu>
 
-        <ListBox Grid.Column="0" ItemsSource="{Binding Contacts}"
+        <ListBox Grid.Row="1" ItemsSource="{Binding Contacts}"
                  SelectedItem ="{Binding SelectedContact}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -40,12 +47,12 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button Command="{Binding AddCommand}">+</Button>
             <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedContact}">-</Button>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" DataContext="{Binding SelectedContact}">
+        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedContact}">
             <TextBlock Text="Selected contact"/>
             <TextBlock Text="First name"/>
             <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>

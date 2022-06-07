@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
@@ -9,6 +9,10 @@ namespace NotebookWPF
     public class NoteViewModel : INotifyPropertyChanged
     {
         private PersonContact? selectedContact; // contact which is selected in contact-list
+
+        private IFileService fileService;
+        private IDialogService dialogService;
+
         public PersonContact? SelectedContact
         {
             get => selectedContact;
@@ -52,10 +56,66 @@ namespace NotebookWPF
             }
         }
 
+        private RelayCommand saveCommand;
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return saveCommand ??
+                    (saveCommand = new RelayCommand(obj =>
+                    {
+                        try
+                        {
+                            if (dialogService.SaveFileDialog() == true)
+                            {
+                                fileService.Save(dialogService.FilePath, Contacts.ToList());
+                                dialogService.ShowMessage("File is saved");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            dialogService.ShowMessage(ex.Message);
+                        }
+                    }));
+            }
+        }
+
+        private RelayCommand openCommand;
+        public RelayCommand OpenCommand
+        {
+            get
+            {
+                return openCommand ??
+                    (openCommand = new RelayCommand(obj =>
+                    {
+                        try
+                        {
+                            if (dialogService.OpenFileDialog() == true)
+                            {
+                                var contacts = fileService.Open(dialogService.FilePath);
+                                Contacts.Clear();
+                                foreach (var c in contacts)
+                                {
+                                    Contacts.Add(c);
+                                }
+                                dialogService.ShowMessage("File is opened");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            dialogService.ShowMessage(ex.Message);
+                        }
+                    }));
+            }
+        }
+
         public ObservableCollection<PersonContact>? Contacts { get; set; }
 
-        public NoteViewModel()
+        public NoteViewModel(IDialogService dialogService, IFileService fileService)
         {
+            this.dialogService = dialogService;
+            this.fileService = fileService;
+
             Contacts = new ObservableCollection<PersonContact>()
             {
                 new PersonContact

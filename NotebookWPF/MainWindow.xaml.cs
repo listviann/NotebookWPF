@@ -24,7 +24,7 @@ namespace NotebookWPF
         {
             InitializeComponent();
 
-            DataContext = new NoteViewModel();
+            DataContext = new NoteViewModel(new DefaultDialogService(), new JsonFileService());
         }
     }
 }
