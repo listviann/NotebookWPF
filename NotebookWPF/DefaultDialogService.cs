@@ -21,6 +21,7 @@ namespace NotebookWPF
         public bool SaveFileDialog()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "JSON file(*.json)|*.json|Text file(*.txt)|*.txt";
             if (saveFileDialog.ShowDialog() == true)
             {
                 FilePath = saveFileDialog.FileName;
