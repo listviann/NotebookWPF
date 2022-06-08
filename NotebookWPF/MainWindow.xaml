@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NotebookWPF"
         mc:Ignorable="d"
-        Title="NotebookWPF" Height="350" Width="525">
-    <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
+        MinHeight="350"
+        MinWidth="525"
+        Title="NotebookWPF" Height="350" Width="525" Style="{DynamicResource WindowStyle}">
+    <!--<Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="14"/>
         </Style>
@@ -17,7 +16,7 @@
             <Setter Property="Width" Value="40"/>
             <Setter Property="Margin" Value="5"/>
         </Style>
-    </Window.Resources>
+    </Window.Resources>-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -33,39 +32,43 @@
                 <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
                 <MenuItem Header="Save" Command="{Binding SaveCommand}"/>
             </MenuItem>
+            <MenuItem Header="Theme">
+                <MenuItem x:Name="lightThemeMenuItem" Header="Light" Click="lightThemeMenuItem_Click"/>
+                <MenuItem x:Name="darkThemeMenuItem" Header="Dark" Click="darkThemeMenuItem_Click"/>
+            </MenuItem>
         </Menu>
 
         <ListBox Grid.Row="1" ItemsSource="{Binding Contacts}"
-                 SelectedItem ="{Binding SelectedContact}">
+                 SelectedItem ="{Binding SelectedContact}" Style="{DynamicResource ListBoxStyle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
-                        <TextBlock FontSize="15" Text="{Binding Path=LastName}"/>
-                        <TextBlock FontSize="10" Text="{Binding Path=FirstName}"/>
-                        <TextBlock Text="{Binding Path=PhoneNumber}"/>
+                        <TextBlock FontSize="15" Text="{Binding Path=LastName}" Style="{DynamicResource TextBlockStyle}"/>
+                        <TextBlock FontSize="10" Text="{Binding Path=FirstName}" Style="{DynamicResource TextBlockStyle}"/>
+                        <TextBlock FontSize="14" Text="{Binding Path=PhoneNumber}" Style="{DynamicResource TextBlockStyle}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Command="{Binding AddCommand}">+</Button>
-            <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedContact}">-</Button>
+            <Button Width="100" Margin="5" Command="{Binding AddCommand}" Style="{DynamicResource ButtonStyle}">+</Button>
+            <Button Width="100" Margin="5" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedContact}" Style="{DynamicResource ButtonStyle}">-</Button>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedContact}">
-            <TextBlock Text="Selected contact"/>
-            <TextBlock Text="First name"/>
-            <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="last name"/>
-            <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="Phone number"/>
-            <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="Email"/>
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="Living address"/>
-            <TextBox Text="{Binding LivingAddress, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="Birth date"/>
-            <TextBox Text="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock FontSize="14" Text="Selected contact" Style="{DynamicResource TextBlockStyle}"/>
+            <TextBlock FontSize="14" Text="First name" Style="{DynamicResource TextBlockStyle}"/>
+            <TextBox FontSize="14" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBoxStyle}"/>
+            <TextBlock FontSize="14" Text="last name" Style="{DynamicResource TextBlockStyle}"/>
+            <TextBox FontSize="14" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBoxStyle}"/>
+            <TextBlock FontSize="14" Text="Phone number" Style="{DynamicResource TextBlockStyle}"/>
+            <TextBox FontSize="14" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBoxStyle}"/>
+            <TextBlock FontSize="14" Text="Email" Style="{DynamicResource TextBlockStyle}"/>
+            <TextBox FontSize="14" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBoxStyle}"/>
+            <TextBlock FontSize="14" Text="Living address" Style="{DynamicResource TextBlockStyle}"/>
+            <TextBox FontSize="14" Text="{Binding LivingAddress, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBoxStyle}"/>
+            <TextBlock FontSize="14" Text="Birth date" Style="{DynamicResource TextBlockStyle}"/>
+            <TextBox FontSize="14" Text="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBoxStyle}"/>
         </StackPanel>
     </Grid>
 </Window>
