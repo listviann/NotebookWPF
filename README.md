@@ -13,5 +13,5 @@ The information that was saved by user are stored in JSON-file. The user can sav
 
 NotebookWPF has been developed using the MVVM design pattern (Model-View-ViewModel).
 
-Also, this application supports color theme switching (light-dark). To do this open NotebookWPF, then select a "Theme" item which is located in menu and choose a color theme you want to use.
+Also, this application supports color theme switching (light-dark). To do this, open NotebookWPF, then select a "Theme" item which is located in menu and choose a color theme you want to use.
 
